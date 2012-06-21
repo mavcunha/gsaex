@@ -1,0 +1,8 @@
+out
+target
+reports
+lib
+*.iml
+*.ipr
+*.iws
+.DS_Store
