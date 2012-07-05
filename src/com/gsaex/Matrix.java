@@ -8,8 +8,8 @@ public class Matrix implements Iterable<Element> {
     private final int[][] matrix;
 
     public Matrix(String query, String subject) {
-        size = new Coord(query.length(), subject.length());
-        matrix = new int[query.length()][subject.length()];
+        size = new Coord(subject.length(), query.length());
+        matrix = new int[subject.length() + 1][query.length() + 1];
     }
 
     public Coord size() {
@@ -18,19 +18,19 @@ public class Matrix implements Iterable<Element> {
 
     public void set(Element element) {
         Coord coord = element.coord();
-        isValidCoord(coord);
-        matrix[coord.m()-1][coord.n()-1] = element.value();
+        validateBoundary(coord);
+        matrix[coord.i()][coord.j()] = element.value();
     }
 
-    private void isValidCoord(Coord coord) {
-        if (coord.m() > size.m() || coord.n() > size.n() || coord.m() < 1 || coord.n() < 1) {
-            throw new InvalidCoordinateAccess("Matrix size:" + size + " coord:" + coord);
+    private void validateBoundary(Coord coord) {
+        if (coord.i() > size.i() || coord.j() > size.j() || coord.i() < 0 || coord.j() < 0) {
+            throw new OutOfMatrixBoundaryAccessException("Matrix size:" + size + " coord:" + coord);
         }
     }
 
     public Element get(Coord coord) {
-        isValidCoord(coord);
-        return new Element(coord, matrix[coord.m()-1][coord.n()-1]);
+        validateBoundary(coord);
+        return new Element(coord, matrix[coord.i()][coord.j()]);
     }
 
     @Override
@@ -38,10 +38,34 @@ public class Matrix implements Iterable<Element> {
         return new MatrixIterator(this);
     }
 
-    public class InvalidCoordinateAccess extends RuntimeException {
-        public InvalidCoordinateAccess(String message) {
+    public Iterator<Element> row(Coord coord) {
+        return new RowIterator<Element>(this, coord);
+    }
+
+    public class OutOfMatrixBoundaryAccessException extends RuntimeException {
+        public OutOfMatrixBoundaryAccessException(String message) {
             super(message);
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Matrix otherMatrix = (Matrix) o;
+
+        if (size != null ? !size.equals(otherMatrix.size) : otherMatrix.size != null) return false;
+
+        for(Element e : otherMatrix)
+            if(!e.equals(this.get(e.coord())))
+                return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return size != null ? size.hashCode() : 0;
+    }
 }

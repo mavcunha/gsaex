@@ -29,11 +29,11 @@ public class CoordTest {
 
     @Test
     public void individualNCoordIsAvailable() {
-        assertThat(new Coord(2, 2).n(), is(2));
+        assertThat(new Coord(2, 2).j(), is(2));
     }
 
     @Test
     public void individualMCoordIsAvailable() {
-        assertThat(new Coord(3, 3).m(), is(3));
+        assertThat(new Coord(3, 3).i(), is(3));
     }
 }

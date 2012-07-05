@@ -2,20 +2,20 @@ package com.gsaex;
 
 public class Coord {
 
-    private final int m;
-    private final int n;
+    private final int i;
+    private final int j;
 
-    public Coord(int m, int n) {
-        this.m = m;
-        this.n = n;
+    public Coord(int i, int j) {
+        this.i = i;
+        this.j = j;
     }
 
     public Coord left() {
-        return new Coord(this.m, this.n - 1);
+        return new Coord(this.i, this.j - 1);
     }
 
     public Coord right() {
-        return new Coord(this.m, this.n + 1);
+        return new Coord(this.i, this.j + 1);
     }
 
     @Override
@@ -25,32 +25,32 @@ public class Coord {
 
         Coord coord = (Coord) o;
 
-        if (m != coord.m) return false;
-        if (n != coord.n) return false;
+        if (i != coord.i) return false;
+        if (j != coord.j) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = m;
-        result = 31 * result + n;
+        int result = i;
+        result = 31 * result + j;
         return result;
     }
 
-    public int m() {
-        return this.m;
+    public int i() {
+        return this.i;
     }
 
-    public int n() {
-        return this.n;
+    public int j() {
+        return this.j;
     }
 
     @Override
     public String toString() {
         return "Coord{" +
-                "m=" + m +
-                ", n=" + n +
+                "i=" + i +
+                ", j=" + j +
                 '}';
     }
 }
