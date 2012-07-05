@@ -12,7 +12,7 @@ public class MatrixIterator implements Iterator<Element>, Iterable<Element> {
     private int row;
     private int column;
     private final Matrix matrix;
-    private Coord upperLimit;
+    private final Coord upperLimit;
 
     public MatrixIterator(Matrix matrix, Coord upperLimit) {
         this.matrix = matrix;
