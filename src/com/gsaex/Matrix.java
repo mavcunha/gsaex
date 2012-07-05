@@ -42,6 +42,10 @@ public class Matrix implements Iterable<Element> {
         return new RowIterator<Element>(this, coord);
     }
 
+    public Iterator<Element> column(Coord coord) {
+        return new ColumnIterator<Element>(this, coord);
+    }
+
     public class OutOfMatrixBoundaryAccessException extends RuntimeException {
         public OutOfMatrixBoundaryAccessException(String message) {
             super(message);

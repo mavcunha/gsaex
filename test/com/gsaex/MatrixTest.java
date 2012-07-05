@@ -68,4 +68,22 @@ public class MatrixTest {
             assertEquals(expected, row.next());
         }
     }
+
+    @Test
+    public void shouldBeAbleToReturnAsSpecificColumn() {
+        List<Element> expectedElements = Arrays.asList(
+                new Element(new Coord(0,1), 0),
+                new Element(new Coord(1,1), 1),
+                new Element(new Coord(2,1), 2)
+        );
+
+        Matrix matrix = new Matrix("AA", "CC");
+        for (Element expectedElement : expectedElements)
+            matrix.set(expectedElement);
+
+        Iterator<Element> column = matrix.column(new Coord(2, 1));
+        for (Element expected : expectedElements) {
+            assertEquals(expected, column.next());
+        }
+    }
 }
