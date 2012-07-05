@@ -17,7 +17,7 @@ public class MatrixIteratorTest {
 
     @Test
     public void hasNextReturnsFalseAfterGoThroughTheMatrix() {
-        Iterator<Integer> iterator = new MatrixIterator(new Matrix("AAA", "CCC"));
+        Iterator<Element> iterator = new MatrixIterator(new Matrix("AAA", "CCC"));
         for (int i = 1; i <= 9; i++) {
             iterator.next();
         }

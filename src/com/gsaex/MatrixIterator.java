@@ -2,7 +2,7 @@ package com.gsaex;
 
 import java.util.Iterator;
 
-public class MatrixIterator implements Iterator<Integer> {
+public class MatrixIterator implements Iterator<Element> {
 
     private final Coord size;
     private int currentM = 1;
@@ -20,10 +20,10 @@ public class MatrixIterator implements Iterator<Integer> {
     }
 
     @Override
-    public Integer next() {
-        int value = matrix.get(new Coord(currentM, currentN));
+    public Element next() {
+        Element element = matrix.get(new Coord(currentM, currentN));
         incrementCoordinates();
-        return value;
+        return element;
     }
 
     private void incrementCoordinates() {

@@ -16,19 +16,19 @@ public class MatrixTest {
     @Test
     public void canChangeTheValueOfElement() {
         Matrix matrix = new Matrix("AAA", "CCC");
-        assertThat(matrix.get(new Coord(3, 3)), is(0));
-        matrix.set(new Coord(3, 3), 99);
-        assertThat(matrix.get(new Coord(3, 3)), is(99));
+        assertThat(matrix.get(new Coord(3, 3)).value(), is(0));
+        matrix.set(new Element(new Coord(3, 3), 99));
+        assertThat(matrix.get(new Coord(3, 3)).value(), is(99));
     }
 
     @Test(expected = Matrix.InvalidCoordinateAccess.class)
     public void shouldThrowExceptionIfSetMGreaterThanSize() {
-        new Matrix("AAA","CCC").set(new Coord(5,1),0);
+        new Matrix("AAA","CCC").set(new Element(new Coord(5,1),0));
     }
 
     @Test(expected = Matrix.InvalidCoordinateAccess.class)
     public void shouldThrowExceptionIfSetNGreaterThanSize() {
-        new Matrix("AAA", "CCC").set(new Coord(1, 5), 0);
+        new Matrix("AAA", "CCC").set(new Element(new Coord(1, 5), 0));
     }
 
     @Test(expected = Matrix.InvalidCoordinateAccess.class)
@@ -45,16 +45,16 @@ public class MatrixTest {
     public void shouldBeAbleToBeTransversedInOrder() {
         Matrix matrix = new Matrix("AA", "CC");
 
-        matrix.set(new Coord(1,1),1);
-        matrix.set(new Coord(1,2),2);
-        matrix.set(new Coord(2,1),3);
-        matrix.set(new Coord(2,2),4);
+        matrix.set(new Element(new Coord(1,1),1));
+        matrix.set(new Element(new Coord(1,2),2));
+        matrix.set(new Element(new Coord(2,1),3));
+        matrix.set(new Element(new Coord(2,2),4));
 
-        Iterator<Integer> iterator = matrix.iterator();
+        Iterator<Element> iterator = matrix.iterator();
 
         int[] expected = new int[]{1, 2, 3, 4};
         for (int anExpected : expected) {
-            assertThat(anExpected, is(iterator.next()));
+            assertThat(anExpected, is(iterator.next().value()));
         }
     }
 }

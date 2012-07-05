@@ -2,7 +2,7 @@ package com.gsaex;
 
 import java.util.Iterator;
 
-public class Matrix implements Iterable<Integer> {
+public class Matrix implements Iterable<Element> {
 
     private final Coord size;
     private final int[][] matrix;
@@ -16,9 +16,10 @@ public class Matrix implements Iterable<Integer> {
         return this.size;
     }
 
-    public void set(Coord coord, int value) {
+    public void set(Element element) {
+        Coord coord = element.coord();
         isValidCoord(coord);
-        matrix[coord.m()-1][coord.n()-1] = value;
+        matrix[coord.m()-1][coord.n()-1] = element.value();
     }
 
     private void isValidCoord(Coord coord) {
@@ -27,13 +28,13 @@ public class Matrix implements Iterable<Integer> {
         }
     }
 
-    public int get(Coord coord) {
+    public Element get(Coord coord) {
         isValidCoord(coord);
-        return matrix[coord.m()-1][coord.n()-1];
+        return new Element(coord, matrix[coord.m()-1][coord.n()-1]);
     }
 
     @Override
-    public Iterator<Integer> iterator() {
+    public Iterator<Element> iterator() {
         return new MatrixIterator(this);
     }
 
