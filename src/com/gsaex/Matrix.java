@@ -1,6 +1,8 @@
 package com.gsaex;
 
-public class Matrix {
+import java.util.Iterator;
+
+public class Matrix implements Iterable<Integer> {
 
     private final Coord size;
     private final int[][] matrix;
@@ -21,7 +23,7 @@ public class Matrix {
 
     private void isValidCoord(Coord coord) {
         if (coord.m() > size.m() || coord.n() > size.n() || coord.m() < 1 || coord.n() < 1) {
-            throw new InvalidCoordinateAccess();
+            throw new InvalidCoordinateAccess("Matrix size:" + size + " coord:" + coord);
         }
     }
 
@@ -30,5 +32,15 @@ public class Matrix {
         return matrix[coord.m()-1][coord.n()-1];
     }
 
-    public class InvalidCoordinateAccess extends RuntimeException {}
+    @Override
+    public Iterator<Integer> iterator() {
+        return new MatrixIterator(this);
+    }
+
+    public class InvalidCoordinateAccess extends RuntimeException {
+        public InvalidCoordinateAccess(String message) {
+            super(message);
+        }
+    }
+
 }

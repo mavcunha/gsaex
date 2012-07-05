@@ -45,4 +45,12 @@ public class Coord {
     public int n() {
         return this.n;
     }
+
+    @Override
+    public String toString() {
+        return "Coord{" +
+                "m=" + m +
+                ", n=" + n +
+                '}';
+    }
 }
