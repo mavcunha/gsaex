@@ -41,20 +41,4 @@ public class MatrixTest {
         new Matrix("AAA", "CCCC").get(new Coord(1, 0));
     }
 
-    @Test
-    public void shouldBeAbleToBeTransversedInOrder() {
-        Matrix matrix = new Matrix("AA", "CC");
-
-        matrix.set(new Element(new Coord(1,1),1));
-        matrix.set(new Element(new Coord(1,2),2));
-        matrix.set(new Element(new Coord(2,1),3));
-        matrix.set(new Element(new Coord(2,2),4));
-
-        Iterator<Element> iterator = matrix.iterator();
-
-        int[] expected = new int[]{1, 2, 3, 4};
-        for (int anExpected : expected) {
-            assertThat(anExpected, is(iterator.next().value()));
-        }
-    }
 }
