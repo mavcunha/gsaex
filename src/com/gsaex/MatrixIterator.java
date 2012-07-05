@@ -5,8 +5,8 @@ import java.util.Iterator;
 public class MatrixIterator implements Iterator<Element> {
 
     private final Coord size;
-    private int currentM;
-    private int currentN;
+    private int row;
+    private int column;
     private final Matrix matrix;
 
     public MatrixIterator(Matrix matrix) {
@@ -16,22 +16,22 @@ public class MatrixIterator implements Iterator<Element> {
 
     @Override
     public boolean hasNext() {
-        return currentM <= size.i() && currentN <= size.j();
+        return row <= size.i() && column <= size.j();
     }
 
     @Override
     public Element next() {
-        Element element = matrix.get(new Coord(currentM, currentN));
+        Element element = matrix.get(new Coord(row, column));
         incrementCoordinates();
         return element;
     }
 
     private void incrementCoordinates() {
-        if(currentN < size.j()) {
-            currentN++;
+        if(column < size.j()) {
+            column++;
         } else {
-            currentN = 0;
-            currentM++;
+            column = 0;
+            row++;
         }
     }
 

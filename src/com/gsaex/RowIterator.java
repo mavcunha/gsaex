@@ -6,24 +6,24 @@ public class RowIterator<T> implements Iterator<Element> {
 
     private final Matrix matrix;
     private final Coord size;
-    private final int currentM;
-    private int currentN;
+    private final int row;
+    private int column;
 
     public RowIterator(Matrix matrix, Coord coord) {
         this.matrix = matrix;
         this.size = matrix.size();
-        this.currentM = coord.i();
+        this.row = coord.i();
     }
 
     @Override
     public boolean hasNext() {
-        return currentN <= size.j();
+        return column <= size.j();
     }
 
     @Override
     public Element next() {
-        Element element = matrix.get(new Coord(currentM, currentN));
-        currentN++;
+        Element element = matrix.get(new Coord(row, column));
+        column++;
         return element;
     }
 
