@@ -18,6 +18,14 @@ public class Coord {
         return new Coord(this.i, this.j + 1);
     }
 
+    public Coord up() {
+        return new Coord(this.i - 1, this.j);
+    }
+
+    public Coord diag() {
+        return new Coord(this.i - 1, this.j - 1);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,8 +1,8 @@
 package com.gsaex;
 
-import java.util.Iterator;
+import com.gsaex.iterator.MatrixIterator;
 
-public class Matrix implements Iterable<Element> {
+public class Matrix {
 
     private final Coord size;
     private final int[][] matrix;
@@ -33,19 +33,6 @@ public class Matrix implements Iterable<Element> {
         return new Element(coord, matrix[coord.i()][coord.j()]);
     }
 
-    @Override
-    public Iterator<Element> iterator() {
-        return new MatrixIterator(this);
-    }
-
-    public Iterator<Element> row(Coord coord) {
-        return new RowIterator<Element>(this, coord);
-    }
-
-    public Iterator<Element> column(Coord coord) {
-        return new ColumnIterator<Element>(this, coord);
-    }
-
     public class OutOfMatrixBoundaryAccessException extends RuntimeException {
         public OutOfMatrixBoundaryAccessException(String message) {
             super(message);
@@ -61,7 +48,7 @@ public class Matrix implements Iterable<Element> {
 
         if (size != null ? !size.equals(otherMatrix.size) : otherMatrix.size != null) return false;
 
-        for(Element e : otherMatrix)
+        for(Element e : new MatrixIterator(otherMatrix))
             if(!e.equals(this.get(e.coord())))
                 return false;
 
@@ -71,5 +58,14 @@ public class Matrix implements Iterable<Element> {
     @Override
     public int hashCode() {
         return size != null ? size.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        String matrix = "Matrix {";
+        for (Element e : new MatrixIterator(this)) {
+            matrix += e;
+        }
+        return matrix;
     }
 }

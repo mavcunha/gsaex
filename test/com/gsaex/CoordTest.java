@@ -36,4 +36,14 @@ public class CoordTest {
     public void individualMCoordIsAvailable() {
         assertThat(new Coord(3, 3).i(), is(3));
     }
+
+    @Test
+    public void canReturnUp() {
+        assertThat(new Coord(1, 1), is(new Coord(2, 1).up()));
+    }
+
+    @Test
+    public void canReturnDiagonal() {
+        assertThat(new Coord(0, 0), is(new Coord(1, 1).diag()));
+    }
 }

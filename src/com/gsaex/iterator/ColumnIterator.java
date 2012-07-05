@@ -1,8 +1,12 @@
-package com.gsaex;
+package com.gsaex.iterator;
+
+import com.gsaex.Coord;
+import com.gsaex.Element;
+import com.gsaex.Matrix;
 
 import java.util.Iterator;
 
-public class ColumnIterator<T> implements Iterator<Element> {
+public class ColumnIterator<T> implements Iterator<Element>, Iterable<Element> {
 
     private final Matrix matrix;
     private final Coord size;
@@ -29,5 +33,10 @@ public class ColumnIterator<T> implements Iterator<Element> {
 
     @Override
     public void remove() {
+    }
+
+    @Override
+    public Iterator<Element> iterator() {
+        return this;
     }
 }

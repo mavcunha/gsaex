@@ -1,17 +1,34 @@
-package com.gsaex;
+package com.gsaex.iterator;
+
+import com.gsaex.Coord;
+import com.gsaex.Element;
+import com.gsaex.Matrix;
 
 import java.util.Iterator;
 
-public class MatrixIterator implements Iterator<Element> {
+public class MatrixIterator implements Iterator<Element>, Iterable<Element> {
 
     private final Coord size;
     private int row;
     private int column;
     private final Matrix matrix;
+    private Coord upperLimit;
+
+    public MatrixIterator(Matrix matrix, Coord upperLimit) {
+        this.matrix = matrix;
+        this.size = matrix.size();
+        row = upperLimit.i();
+        column = upperLimit.j();
+        this.upperLimit = upperLimit;
+    }
 
     public MatrixIterator(Matrix matrix) {
-        this.size = matrix.size();
-        this.matrix = matrix;
+        this(matrix, new Coord(0, 0));
+    }
+
+    @Override
+    public Iterator<Element> iterator() {
+        return this;
     }
 
     @Override
@@ -30,7 +47,7 @@ public class MatrixIterator implements Iterator<Element> {
         if(column < size.j()) {
             column++;
         } else {
-            column = 0;
+            column = this.upperLimit.j();
             row++;
         }
     }
@@ -39,5 +56,4 @@ public class MatrixIterator implements Iterator<Element> {
     public void remove() {
         // noop
     }
-
 }

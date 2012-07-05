@@ -1,9 +1,13 @@
-package com.gsaex;
+package com.gsaex.iterator;
 
+import com.gsaex.Coord;
+import com.gsaex.Element;
+import com.gsaex.Matrix;
 import org.junit.Test;
 
 import java.util.Iterator;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -40,11 +44,28 @@ public class MatrixIteratorTest {
         matrix.set(new Element(new Coord(2,1), 7));
         matrix.set(new Element(new Coord(2,2), 8));
 
-        Iterator<Element> iterator = matrix.iterator();
+        Iterator<Element> iterator = new MatrixIterator(matrix);
 
         int[] expected = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
         for (int anExpected : expected) {
-            assertThat(anExpected, is(iterator.next().value()));
+            assertThat(iterator.next().value(), is(equalTo(anExpected)));
+        }
+    }
+
+    @Test
+    public void shouldBeAbleToSetAUpperLimit() {
+        Matrix matrix = new Matrix("AA", "CC");
+
+        matrix.set(new Element(new Coord(1,1), 4));
+        matrix.set(new Element(new Coord(1,2), 5));
+        matrix.set(new Element(new Coord(2,1), 7));
+        matrix.set(new Element(new Coord(2,2), 8));
+
+        Iterator<Element> iterator = new MatrixIterator(matrix, new Coord(1,1));
+
+        int[] expected = new int[]{4, 5, 7, 8};
+        for (int anExpected : expected) {
+            assertThat(iterator.next().value(), is(equalTo(anExpected)));
         }
     }
 }

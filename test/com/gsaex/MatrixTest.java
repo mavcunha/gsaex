@@ -1,12 +1,16 @@
 package com.gsaex;
 
+import com.gsaex.iterator.ColumnIterator;
+import com.gsaex.iterator.RowIterator;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -52,6 +56,16 @@ public class MatrixTest {
     }
 
     @Test
+    public void twoMatricesAreNotEqualIfDifferByOneElement() {
+        Matrix matrix  = new Matrix("AAAA", "CCCC");
+        Matrix matrix1 = new Matrix("AAAA", "CCCC");
+
+        matrix1.set(new Element(new Coord(1,1), 9999));
+
+        assertThat(matrix, is(not(equalTo(matrix1))));
+    }
+
+    @Test
     public void shouldBeAbleToReturnASpecificRow() {
         List<Element> expectedElements = Arrays.asList(
                 new Element(new Coord(1,0), 0),
@@ -63,7 +77,7 @@ public class MatrixTest {
         for (Element expectedElement : expectedElements)
             matrix.set(expectedElement);
 
-        Iterator<Element> row = matrix.row(new Coord(1, 2));
+        Iterator<Element> row = new RowIterator<Element>(matrix, new Coord(1, 2));
         for (Element expected : expectedElements) {
             assertEquals(expected, row.next());
         }
@@ -81,7 +95,7 @@ public class MatrixTest {
         for (Element expectedElement : expectedElements)
             matrix.set(expectedElement);
 
-        Iterator<Element> column = matrix.column(new Coord(2, 1));
+        Iterator<Element> column = new ColumnIterator<Element>(matrix, new Coord(2, 1));
         for (Element expected : expectedElements) {
             assertEquals(expected, column.next());
         }
